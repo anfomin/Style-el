@@ -1,0 +1,30 @@
+# Packages
+node_modules
+packages
+
+# Build
+wwwroot
+artifacts
+bin
+obj
+
+# User-specific files
+*.suo
+*.user
+*.ide
+*.publishsettings
+*.lock
+*.lock.json
+*.log
+*.rej
+*.imdone
+npm-debug.log
+npm-debug.log.*
+package-lock.json
+
+# OS X temporary files
+.DS_Store
+._*
+
+# IDE
+.vs
