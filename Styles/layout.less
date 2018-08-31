@@ -1,0 +1,130 @@
+@import 'variables.less';
+
+html {
+	height: 100%;
+	min-height: 100%;
+}
+
+body {
+	height: 100%;
+	background: @body-bg;
+	display: flex;
+	flex-flow: column;
+
+	> header,
+	> footer {
+		flex-shrink: 0;
+	}
+
+	> content {
+		flex: 1 0 auto;
+		margin-bottom: @padding-default;
+	}
+}
+
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: @padding-default-phone;
+	padding-right: @padding-default-phone;
+	width: 100%;
+	max-width: 990px;
+
+	@media @media-tablet {
+		padding-left: @padding-default;
+		padding-right: @padding-default;
+	}
+}
+
+body > header.full {
+	background: url(/images/header-fill-left.png) repeat-x top;
+
+	&:before {
+		content: '';
+		display: block;
+		height: 4px;
+		margin-left: 50%;
+		background: url(/images/header-fill-right.png) repeat-x top;
+	}
+
+	.bg {
+		margin-top: -4px;
+		background: url(/images/header.png) no-repeat;
+		background-position: center top;
+		height: 189px;
+	}
+
+	.logo {
+		display: block;
+		float: left;
+		margin: 18px 0 0 0px;
+		width: 205px;
+		height: 142px;
+	}
+
+	.phone {
+		float: right;
+		margin: 85px 25px 0 0;
+		font-size: 1.5em;
+		line-height: 1.5em;
+		font-family: "Myriad Pro", Calibri, Arial;
+		display: block;
+		overflow: auto;
+
+		a {
+			font-weight: bold;
+			font-size: 30px;
+			text-decoration: none;
+		}
+	}
+}
+
+body > footer {
+	font-size: @font-size-sm;
+	background: url(/images/footer-fill.png) repeat-x bottom;
+
+	.bg {
+		background: url(/images/footer.png) no-repeat center bottom;
+	}
+
+	.container {
+		height: 137px;
+		padding-top: 50px;
+	}
+}
+
+nav {
+	display: flex;
+	flex-flow: row wrap;
+	margin: @spacing-lg 0 @spacing-xl;
+
+	a, span {
+		display: block;
+		margin-right: @spacing-sm;
+		padding: 12px 0px 0px 25px;
+		min-height: 40px;
+		font-size: @font-size-nav;
+		background: url(/images/menu-bg.png) no-repeat top left;
+		text-transform: uppercase;
+
+		&:hover,
+		&.active {
+			background-image: url(/images/menu-bg-active.png);
+		}
+	}
+
+	a.home, span.home {
+		width: 47px;
+		height: 47px;
+		padding: 0px;
+		background: url(/images/home.png) no-repeat center center;
+		text-decoration: none;
+		text-indent: -999999px;
+		overflow: hidden;
+
+		&:hover,
+		&.active {
+			background-image: url(/images/home-active.png);
+		}
+	}
+}

@@ -3,10 +3,10 @@ node_modules
 packages
 
 # Build
-wwwroot
 artifacts
 bin
 obj
+wwwroot/*.css
 
 # User-specific files
 *.suo

@@ -1,0 +1,135 @@
+@import 'variables.less';
+
+html {
+	font-family: @font-family-base;
+	font-size: @font-size-base;
+	font-weight: @font-weight-base;
+	line-height: @line-height-multiplier;
+	color: @color-text;
+
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4
+.h1, .h2, .h3, .h4 {
+	font-family: @font-family-headings;
+	font-weight: @font-weight-bold;
+	line-height: @line-height-header-multiplier;
+	text-rendering: optimizeLegibility;
+	margin: 1em 0 0.5em;
+
+	&.notop {
+		margin-top: 0;
+	}
+}
+
+h1, .h1 {
+	font-size: @font-size-h1-phone;
+	@media @media-tablet {
+		font-size: @font-size-h1;
+	}
+}
+
+h2, .h2 {
+	font-size: @font-size-h2-phone;
+	@media @media-tablet {
+		font-size: @font-size-h2;
+	}
+}
+
+h3, .h3 {
+	font-size: @font-size-h3-phone;
+	@media @media-tablet {
+		font-size: @font-size-h3;
+	}
+}
+
+h4, .h4 {
+	font-size: @font-size-h4-phone;
+	@media @media-tablet {
+		font-size: @font-size-h4;
+	}
+}
+
+a {
+	color: @color-link;
+	text-decoration: underline;
+
+	&:hover, &:focus {
+		color: @color-link-hover;
+	}
+}
+
+// line height and margin
+p, ul, ol, dl, dd, dt, blockquote, td, th {
+	line-height: @line-height-multiplier;
+}
+
+p, .p, ul, ol, dl, blockquote, hr, pre,
+table, form, fieldset, figure, address {
+	margin: 0 0 @line-margin;
+}
+
+ul, ol {
+	padding-left: 2em;
+
+	> li {
+		text-align: left;
+	}
+
+	&.flat {
+		.list-flat();
+	}
+}
+
+ul > ul,
+ol > ol,
+ul > ol,
+ol > ul,
+nav > ul {
+	margin-bottom: 0;
+}
+
+ol > ol li {
+	list-style-type: lower-alpha;
+}
+
+ol > ol > ol li {
+	list-style-type: lower-roman;
+}
+
+// blockquote and definitions
+blockquote {
+	position: relative;
+	margin-left: 1em;
+	padding-left: 1em;
+	border-left: 2px solid @color-border;
+
+	& p {
+		margin-bottom: .5em;
+	}
+}
+
+blockquote small,
+cite {
+	color: @color-border;
+	font-style: italic;
+}
+
+small,
+blockquote cite {
+	font-size: @font-size-sm;
+	line-height: 1;
+}
+
+dl {
+	dt {
+		font-weight: @font-weight-bold;
+	}
+
+	dd {
+		margin-left: 2.5em;
+	}
+}

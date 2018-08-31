@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="ru">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes">
+	<title>
+		@if (ViewBag.Title != null) {
+			@:@ViewBag.Title -
+		}
+		«Стиль Л»
+	</title>
+	<link rel="stylesheet" href="~/index.css" />
+</head>
+<body>
+	<header class="full">
+		<div class="bg">
+			<div class="container">
+				<a class="logo" href="/" title="Перейти на главную">
+					<img alt="Стиль Л" src="/images/logo.png" />
+				</a>
+				<div class="phone">
+					Контактный телефон<br />
+					<a href="tel:+79129237037">8 (912) 923-70-37</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<content class="container">
+		<nav>
+			@{ var pageActive = ViewContext.RouteData.Values["page"]?.ToString(); }
+			@foreach (var (url, name) in new[] {
+				("/Index", "Главная"),
+				("/Projects", "Наши эксклюзивные работы"),
+				("/Publications", "Публикации"),
+				("/Workflow", "Рабочие моменты"),
+				("/Contacts", "Контакты")
+			}) {
+				@if (url == pageActive) {
+					<span class="active @(url == "/Index" ? "home" : "")">@name</span>
+				}
+				else {
+					<a asp-page="@url" class="@(url == "/Index" ? "home" : "")">@name</a>
+				}
+			}
+		</nav>
+		@if (ViewBag.Title != null) {
+			<h1>@ViewBag.Title</h1>
+		}
+		@RenderBody()
+	</content>
+	<footer>
+		<div class="bg">
+			<div class="container">
+				© 2010-2018, «Стиль Л» — дизайн, строительство, отделка
+			</div>
+		</div>
+		<!-- <div class="footer-container-1">
+		<div class="footer-container-2 container">
+			<p class="footer-copyright">
+				&copy; 2010-2014, &laquo;Стиль Л&raquo; &mdash; дизайн, строительство, отделка
+				@if (!User.Identity.IsAuthenticated)
+				{
+					<br /><a href="@Url.Action("Login", "User", new { area = "Users" })">Вход для своих</a>
+				}
+			</p>
+		</div> -->
+	</div>
+	</footer>
+	<!-- <partial name="_CookieConsentPartial" /> -->
+	<!-- @RenderSection("Scripts", required: false) -->
+</body>
+</html>

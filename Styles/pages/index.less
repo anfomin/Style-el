@@ -1,0 +1,18 @@
+@import '../variables.less';
+@import '../mixins.less';
+
+ul.partners {
+	.list-flat();
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+
+	> li {
+		display: block;
+		width: 160px;
+		margin: @spacing-sm;
+		text-align: center;
+	}
+}

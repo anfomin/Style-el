@@ -1,0 +1,19 @@
+﻿@page
+@model IndexModel
+@inject MarkdownProvider Markdown
+
+@Markdown.ToHtml(Model.Text)
+
+<h2>Наши партнеры</h2>
+<ul class="partners">
+	@foreach (var p in Model.Partners) {
+		<li>
+			@if (p.Url == null) {
+				@p.Name
+			}
+			else {
+				<a href="@p.Url" target="_blank" rel="noopener">@p.Name</a>
+			}
+		</li>
+	}
+</ul>
