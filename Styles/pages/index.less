@@ -11,8 +11,12 @@ ul.partners {
 
 	> li {
 		display: block;
-		width: 160px;
-		margin: @spacing-sm;
+		width: 165px;
+		margin: @spacing-sm 0;
 		text-align: center;
+
+		@media @media-tablet {
+			margin: @spacing-sm;
+		}
 	}
 }

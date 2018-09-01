@@ -1,6 +1,54 @@
 .markdown {
-	img {
+	figure.left,
+	img.left,
+	a.left,
+	img[src$="#left"] {
 		float: left;
+		clear: left;
 		margin: 0 @spacing-md @spacing-sm 0;
+	}
+
+	figure.right,
+	img.right,
+	a.right,
+	img[src$="#right"] {
+		float: right;
+		clear: right;
+		margin: 0 0 @spacing-sm @spacing-md;
+	}
+
+	figure.center,
+	img.center,
+	img[src$="#center"] {
+		margin: 0 auto @spacing-sm;
+		text-align: center;
+		clear: both;
+	}
+
+	figure {
+		display: table;
+
+		> img, > a {
+			display: table-row;
+		}
+
+		> figcaption {
+			display: table-caption;
+			caption-side: bottom;
+			margin-top: @spacing-xs;
+			min-width: 150px;
+			color: @color-gray;
+			font-size: @font-size-sm;
+			font-style: italic;
+			text-align: left;
+		}
+
+		p {
+			margin-bottom: @spacing-sm;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
 	}
 }

@@ -18,7 +18,7 @@ namespace StyleEl.Controllers
 			_storage = storage ?? throw new ArgumentNullException(nameof(storage));
 		}
 
-		[HttpGet("{name}")]
+		[HttpGet("{**name}")]
 		public async Task<IActionResult> File(string name)
 		{
 			string url = await _cache.GetOrCreateAsync($"File:{name}", async entry =>

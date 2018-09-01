@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Rewrite;
@@ -45,6 +46,10 @@ namespace StyleEl
 			app.UseRewriter(new RewriteOptions()
 				.AddRedirect("^index$", "/")
 				.AddRedirect("^(.+)/$", "$1"));
+			app.UseRequestLocalization(new RequestLocalizationOptions
+			{
+				DefaultRequestCulture = new RequestCulture("ru-RU")
+			});
 			app.UseStaticFiles();
 			app.UseResponseCaching();
 			app.UseMvc();

@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="~/index.css" />
 </head>
 <body>
-	<header class="full">
+	<header>
 		<div class="bg">
 			<div class="container">
 				<a class="logo" href="/" title="Перейти на главную">
@@ -33,15 +33,10 @@
 				("/Index", "Главная"),
 				("/Projects", "Наши эксклюзивные работы"),
 				("/Publications", "Публикации"),
-				("/Workflow", "Рабочие моменты"),
+				// ("/Workflow", "Рабочие моменты"),
 				("/Contacts", "Контакты")
 			}) {
-				@if (url == pageActive) {
-					<span class="active @(url == "/Index" ? "home" : "")">@name</span>
-				}
-				else {
-					<a asp-page="@url" class="@(url == "/Index" ? "home" : "")">@name</a>
-				}
+				<a asp-page="@url" asp-route-key="" class="@(url == pageActive ? "active" : "") @(url == "/Index" ? "home" : "")">@name</a>
 			}
 		</nav>
 		@if (ViewBag.Title != null) {
@@ -52,19 +47,10 @@
 	<footer>
 		<div class="bg">
 			<div class="container">
-				© 2010-2018, «Стиль Л» — дизайн, строительство, отделка
+				© 2010-2018, «Стиль Л»
+				<span class="line2">дизайн, строительство, отделка</span>
 			</div>
 		</div>
-		<!-- <div class="footer-container-1">
-		<div class="footer-container-2 container">
-			<p class="footer-copyright">
-				&copy; 2010-2014, &laquo;Стиль Л&raquo; &mdash; дизайн, строительство, отделка
-				@if (!User.Identity.IsAuthenticated)
-				{
-					<br /><a href="@Url.Action("Login", "User", new { area = "Users" })">Вход для своих</a>
-				}
-			</p>
-		</div> -->
 	</div>
 	</footer>
 	<!-- <partial name="_CookieConsentPartial" /> -->
