@@ -10,7 +10,7 @@
 		<VersionSuffix Condition="'$(VERSION_SUFFIX)'!=''">$(VERSION_SUFFIX)</VersionSuffix>
 		<NoWarn>$(NoWarn);1591;1573</NoWarn>
 		<LangVersion>latest</LangVersion>
-		<TargetFramework>netcoreapp2.1</TargetFramework>
+		<TargetFramework>netcoreapp2.2</TargetFramework>
 		<UserSecretsId>7c4c46ae-d5b9-4e77-a6fc-8879e4b1dbdd</UserSecretsId>
 	</PropertyGroup>
 

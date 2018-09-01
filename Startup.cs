@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,10 +21,10 @@ namespace StyleEl
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc(ConfigureMvc)
-				.SetCompatibilityVersion(CompatibilityVersion.Latest)
-				.AddRazorPagesOptions(ConfigureRazorPages);
+				.SetCompatibilityVersion(CompatibilityVersion.Latest);
 			services.AddRouting(opt => opt.LowercaseUrls = true);
 			services.AddResponseCaching();
+			services.AddSingleton<IPageApplicationModelProvider, DefaultResponseCacheApplicationModelProvider>();
 			services.AddSingleton(CloudStorageAccount.Parse(Configuration.GetConnectionString("Storage")));
 			services.AddSingleton<MarkdownProvider>();
 		}
@@ -53,11 +53,6 @@ namespace StyleEl
 		void ConfigureMvc(MvcOptions options)
 		{
 			options.CacheProfiles.Add("Default", new CacheProfile { Location = ResponseCacheLocation.Any, Duration = 10 * 60 });
-		}
-
-		void ConfigureRazorPages(RazorPagesOptions options)
-		{
-			options.Conventions.ConfigureFilter(new RazorResponseCacheFilter("Default"));
 		}
 	}
 }
