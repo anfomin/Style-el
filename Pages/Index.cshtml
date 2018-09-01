@@ -2,7 +2,9 @@
 @model IndexModel
 @inject MarkdownProvider Markdown
 
-@Markdown.ToHtml(Model.Text)
+<div class="markdown">
+	@Markdown.ToHtml(Model.Text)
+</div>
 
 <h2>Наши партнеры</h2>
 <ul class="partners">
