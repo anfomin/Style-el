@@ -7,14 +7,14 @@
 
 @if (Model.List != null) {
 	foreach (var p in Model.List) {
-		<article class="publication-index">
+		<article class="publications">
 			<div class="date">@p.Date.ToString("MMMM yyyy")</div>
 			<a asp-route-key="@p.RowKey">@p.Place — @p.Name</a>
 		</article>
 	}
 }
 else {
-	<article class="publications-item markdown">
+	<article class="markdown">
 		<h3>@Model.Item.Place (@Model.Item.Date.ToString("MMMM yyyy"))</h3>
 		@Markdown.ToHtml(Model.Item.Text)
 	</article>

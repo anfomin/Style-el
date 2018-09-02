@@ -1,0 +1,47 @@
+@import '../variables.less';
+@import '../mixins.less';
+
+ul.projects {
+	@s: @spacing-lg;
+
+	display: flex;
+	flex-flow: row wrap;
+	margin: 0 -(@s/2) -@s;
+
+	.list-flat();
+
+	> li {
+		display: block;
+		flex: 0 0 25%;
+		padding: 0 @s/2;
+		margin-bottom: @s;
+		text-align: center;
+	}
+
+	a {
+		display: block;
+
+		img {
+			display: block;
+			border: @spacing-xs solid @color-border;
+			transition: border-color @transition-duration @transition-function;
+		}
+
+		span {
+			display: inline-block;
+			margin: @spacing-xs 0;
+		}
+
+		&:hover img {
+			border-color: @color-active;
+		}
+	}
+}
+
+.projects-item {
+	margin-bottom: @line-margin;
+
+	ul.images {
+		&:extend(ul.projects all);
+	}
+}

@@ -1,0 +1,51 @@
+@page "{key?}"
+@model ProjectsModel
+
+@inject MarkdownProvider Markdown
+@{
+	ViewBag.Title = Model.Item?.Name ?? "Наши эксклюзивные работы";
+}
+
+@if (Model.List != null) {
+	<ul class="projects">
+		@foreach (var p in Model.List) {
+			var img = Model.Images.GetValueOrDefault(p.RowKey, new string[0]).FirstOrDefault();
+			<li>
+				<a asp-route-key="@p.RowKey">
+					@if (img != null) {
+						<img src="@img?width=300&height=300&mode=fill"/>
+					}
+					<span>@p.Name</span>
+				</a>
+			</li>
+		}
+	</ul>
+}
+else {
+	var item = Model.Item;
+	var publication = Model.Publication;
+	var images = Model.Images.GetValueOrDefault(item.RowKey, new string[0]);
+	<article class="projects-item markdown">
+		@Markdown.ToHtml(item.Text)
+		@if (publication != null) {
+			<p>
+				О данной квартире опубликована статья:
+				<a asp-page="/Publications" asp-route-key="@publication.RowKey">@publication.Name, @publication.Place</a>.
+			</p>
+		}
+		<ul class="images">
+			@foreach (var img in images) {
+				<li>
+					<a href="@img">
+						<img src="@(img)?width=300&height=300&mode=fill"/>
+					</a>
+				</li>
+			}
+		</ul>
+		@if (item.Review != null) {
+			<h2>Отзыв заказчика</h2>
+			@Markdown.ToHtml(item.Review)
+		}
+	</article>
+	<a asp-route-key="">Вернуться к списку работ</a>
+}

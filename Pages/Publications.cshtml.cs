@@ -27,7 +27,12 @@ namespace StyleEl.Pages
 			var table = tableClient.GetTableReference("Publications");
 			if (key == null)
 			{
-				var result = await table.ExecuteQuerySegmentedAsync(new TableQuery<Publication>(), null);
+				var query = new TableQuery<Publication>().Select(new[] {
+					nameof(Publication.Date),
+					nameof(Publication.Name),
+					nameof(Publication.Place)
+				});
+				var result = await table.ExecuteQuerySegmentedAsync(query, null);
 				List = result.Results
 					.OrderByDescending(p => p.Date)
 					.ToArray();

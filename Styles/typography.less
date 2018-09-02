@@ -56,9 +56,15 @@ h4, .h4 {
 a {
 	color: @color-link;
 	text-decoration: underline;
+	transition: color @transition-duration @transition-function;
+
+	span {
+		text-decoration: inherit;
+	}
 
 	&:hover, &:focus {
 		color: @color-link-hover;
+		text-decoration: none;
 	}
 }
 
