@@ -8,13 +8,18 @@
 @if (Model.List != null) {
 	foreach (var p in Model.List) {
 		<article class="publications">
-			<div class="date">@p.Date.ToString("MMMM yyyy")</div>
-			<a asp-route-key="@p.RowKey">@p.Place — @p.Name</a>
+			<div class="date">
+				@p.Date.ToString("MMMM")
+				<span class="year">@p.Date.ToString("yyyy")</span>
+			</div>
+			<a asp-route-key="@p.RowKey">
+				@p.Place
+				<span class="name">@p.Name</span></a>
 		</article>
 	}
 }
 else {
-	<article class="markdown">
+	<article class="doc gallery">
 		<h3>@Model.Item.Place (@Model.Item.Date.ToString("MMMM yyyy"))</h3>
 		@Markdown.ToHtml(Model.Item.Text)
 	</article>

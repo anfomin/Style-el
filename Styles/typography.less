@@ -16,9 +16,13 @@ h1, h2, h3, h4
 .h1, .h2, .h3, .h4 {
 	font-family: @font-family-headings;
 	font-weight: @font-weight-base;
-	line-height: @line-height-header-multiplier;
+	line-height: @line-height-header-multiplier-phone;
 	text-rendering: optimizeLegibility;
 	margin: 1em 0 0.5em;
+
+	@media @media-tablet {
+		line-height: @line-height-header-multiplier;
+	}
 
 	&.notop {
 		margin-top: 0;

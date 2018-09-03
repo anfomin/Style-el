@@ -6,8 +6,7 @@ packages
 artifacts
 bin
 obj
-wwwroot/*.css
-wwwroot/*.gz
+wwwroot/*
 
 # User-specific files
 *.suo

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -14,6 +15,7 @@ namespace StyleEl.Controllers
 	[Route("[controller]")]
 	public class FilesController : Controller
 	{
+		readonly static Regex _retinaRegex = new Regex(@"@(?<scale>\d)x$");
 		readonly ILogger _logger;
 		readonly IMemoryCache _cache;
 		readonly CloudStorageAccount _storage;
@@ -28,8 +30,17 @@ namespace StyleEl.Controllers
 		[HttpGet("{**path}")]
 		public async Task<IActionResult> File(string path, [FromQuery]ImageOptions options)
 		{
+			// process retina sizing
 			string ext = Path.GetExtension(path);
-			string pathFinal = path.Substring(0, path.Length - ext.Length) + GetSuffix(options) + ext;
+			string pathWithoutExtention = path.Remove(path.Length - ext.Length);
+			if (!options.IsEmpty && _retinaRegex.Match(pathWithoutExtention) is Match match && match.Success)
+			{
+				pathWithoutExtention = pathWithoutExtention.Remove(pathWithoutExtention.Length - match.Length);
+				path = pathWithoutExtention + ext;
+				options.Size *= int.Parse(match.Groups["scale"].Value);
+			}
+
+			string pathFinal = pathWithoutExtention + GetSuffix(options) + ext;
 			string url = await _cache.GetOrCreateAsync($"File:{pathFinal}", async entry =>
 			{
 				entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
@@ -70,6 +81,7 @@ namespace StyleEl.Controllers
 				}
 				return blob.Uri.ToString();
 			});
+
 			if (url == null)
 				return NotFound();
 			return Redirect(url);

@@ -23,7 +23,7 @@ namespace StyleEl
 
 		public ResizeMode Mode { get; set; }
 
-		public Size Size => _size;
+		public Size Size { get => _size; set => _size = value; }
 
 		public bool IsEmpty => _size.IsEmpty;
 	}

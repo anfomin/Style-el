@@ -13,7 +13,9 @@
 			<li>
 				<a asp-route-key="@p.RowKey">
 					@if (img != null) {
-						<img src="@img?width=300&height=300&mode=fill"/>
+						<div class="img">
+							<div style="background-image:url(@(img)?width=500&height=500&mode=fill)"></div>
+						</div>
 					}
 					<span>@p.Name</span>
 				</a>
@@ -25,7 +27,7 @@ else {
 	var item = Model.Item;
 	var publication = Model.Publication;
 	var images = Model.Images.GetValueOrDefault(item.RowKey, new string[0]);
-	<article class="projects-item markdown">
+	<article class="projects-item doc">
 		@Markdown.ToHtml(item.Text)
 		@if (publication != null) {
 			<p>
@@ -33,11 +35,13 @@ else {
 				<a asp-page="/Publications" asp-route-key="@publication.RowKey">@publication.Name, @publication.Place</a>.
 			</p>
 		}
-		<ul class="images">
+		<ul class="images gallery">
 			@foreach (var img in images) {
 				<li>
 					<a href="@img">
-						<img src="@(img)?width=300&height=300&mode=fill"/>
+						<div class="img">
+							<div style="background-image:url(@(img)?width=500&height=500&mode=fill)"></div>
+						</div>
 					</a>
 				</li>
 			}

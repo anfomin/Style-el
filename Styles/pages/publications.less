@@ -5,12 +5,38 @@
 	margin-bottom: @spacing-lg;
 
 	.date {
-		width: 140px;
+		width: 100px;
 		color: @color-gray;
 		text-transform: capitalize;
+
+		.year {
+			display: block;
+		}
+
+		@media @media-tablet {
+			width: 140px;
+
+			.year {
+				display: inline;
+			}
+		}
 	}
 
 	a {
+		display: inline-block;
 		font-weight: @font-weight-bold;
+
+		span {
+			display: block;
+
+			@media @media-tablet {
+				display: inline;
+
+				&:before {
+					display: inline;
+					content: ' — ';
+				}
+			}
+		}
 	}
 }

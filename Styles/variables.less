@@ -26,14 +26,15 @@
 @font-size-h3:                   24px;
 @font-size-h4:                   18px;
 
-@font-size-h1-phone:             36px;
-@font-size-h2-phone:             30px;
-@font-size-h3-phone:             24px;
+@font-size-h1-phone:             30px;
+@font-size-h2-phone:             26px;
+@font-size-h3-phone:             22px;
 @font-size-h4-phone:             18px;
 
 @line-height-base:               22px;
 @line-height-multiplier:         unit(@line-height-base / @font-size-base);
 @line-height-header-multiplier:  1.3;
+@line-height-header-multiplier-phone: 1.2;
 @line-margin:                    @spacing-md;
 
 // colors
@@ -45,7 +46,7 @@
 @color-active:                   #dd464f;
 
 // media
-@device-tablet:                  768px; // min tablet width
-@device-tablet-1px:              (@device-tablet - 1px);
-@media-phone:                    ~'(max-width: @{device-tablet-1px})';
+@device-phone-landscape:         450px;
+@device-tablet:                  768px;
+@media-phone-landscape:          ~'(min-width: @{device-phone-landscape})';
 @media-tablet:                   ~'(min-width: @{device-tablet})';
