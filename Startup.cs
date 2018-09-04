@@ -28,7 +28,10 @@ namespace StyleEl
 				.SetCompatibilityVersion(CompatibilityVersion.Latest);
 			services.AddRouting(opt => opt.LowercaseUrls = true);
 			services.AddResponseCaching();
-			services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
+			services.AddHttpsRedirection(opt => {
+				opt.HttpsPort = 443;
+				opt.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
+			});
 			services.AddSingleton<IPageApplicationModelProvider, DefaultResponseCacheApplicationModelProvider>();
 			services.AddSingleton(CloudStorageAccount.Parse(Configuration.GetConnectionString("Storage")));
 			services.AddSingleton<MarkdownProvider>();
@@ -36,7 +39,7 @@ namespace StyleEl
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
-			if (env.IsDevelopment())
+			if (!env.IsProduction())
 			{
 				app.UseDeveloperExceptionPage();
 			}
