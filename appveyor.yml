@@ -1,0 +1,22 @@
+version: rtm-{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+skip_tags: true
+image: Visual Studio 2017
+install:
+- ps: |-
+    Install-Product node stable
+    $env:PATH = (yarn global bin) + ";$env:PATH"
+    dotnet --version
+build_script:
+- cmd: |-
+    yarn global add gulp-cli
+    yarn install
+    dotnet publish -c Release -o artifacts
+test: off
+artifacts:
+- path: artifacts
+  name: StyleEl
