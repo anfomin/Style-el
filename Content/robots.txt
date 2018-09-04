@@ -1,0 +1,3 @@
+Host: style-el.ru
+User-agent: *
+Allow: /

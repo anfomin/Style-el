@@ -1,6 +1,9 @@
 ﻿@page
 @model IndexModel
 @inject MarkdownProvider Markdown
+@{
+	ViewBag.Title = "«Стиль Л» - дизайн, строительство, отделка";
+}
 
 <div class="doc gallery">
 	@Markdown.ToHtml(Model.Text)

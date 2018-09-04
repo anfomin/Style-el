@@ -3,7 +3,9 @@
 
 @inject MarkdownProvider Markdown
 @{
-	ViewBag.Title = Model.Item?.Name ?? "Наши эксклюзивные работы";
+	string section = "Наши эксклюзивные работы";
+	ViewBag.Title = (Model.Item != null ? Model.Item.Name + " - " : null) + section;
+	ViewBag.Header = Model.Item?.Name ?? section;
 }
 
 @if (Model.List != null) {
@@ -51,5 +53,10 @@ else {
 			@Markdown.ToHtml(item.Review)
 		}
 	</article>
-	<a asp-route-key="">Вернуться к списку работ</a>
+	<div class="flex">
+		<a class="back" asp-route-key="">
+			<svg><use xlink:href="#icon-back"/></svg>
+			Вернуться к списку работ
+		</a>
+	</div>
 }

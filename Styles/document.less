@@ -56,3 +56,22 @@
 		}
 	}
 }
+
+a.back {
+	@size: 20px;
+	display: inline-flex;
+	align-items: center;
+	line-height: 1;
+
+	svg {
+		width: @size;
+		height: @size;
+		margin-right: @spacing-sm;
+		fill: @color-border;
+		transition: fill @transition-duration @transition-function;
+	}
+
+	&:hover svg {
+		fill: @color-active;
+	}
+}

@@ -4,21 +4,15 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes">
-	<title>
-		@if (ViewBag.Title != null) {
-			@:@ViewBag.Title -
-		}
-		«Стиль Л»
-	</title>
+	<title>@ViewBag.Title</title>
 	<link rel="stylesheet" href="~/css/index.css" />
 </head>
 <body>
+	<partial name="_Svg" />
 	<header>
 		<div class="bg">
 			<div class="container">
-				<a class="logo" href="/" title="Перейти на главную">
-					<img alt="Стиль Л" src="/img/logo.png" />
-				</a>
+				<a class="logo" href="/" title="Перейти на главную"></a>
 				<div class="phone">
 					Контактный телефон<br />
 					<a href="tel:+79129237037">8 (912) 923-70-37</a>
@@ -36,13 +30,28 @@
 				// ("/Workflow", "Рабочие моменты"),
 				("/Contacts", "Контакты")
 			}) {
-				<a asp-page="@url" asp-route-key="" class="@(url == pageActive ? "active" : "") @(url == "/Index" ? "home" : "")">@name</a>
+				<a asp-page="@url" asp-route-key="" class="@(url == "/Index" ? "home" : "normal") @(url == pageActive ? "active" : "")">
+					@if (url == "/Index") {
+						<svg>
+							<use xlink:href="#icon-home" fill="url(#icon-home-bg)"/>
+							<use xlink:href="#icon-home" fill="url(#icon-home-bg-active)" class="active"/>
+						</svg>
+					}
+					else {
+						<svg>
+							<use xlink:href="#icon-menu"/>
+						</svg>
+						@name
+					}
+				</a>
 			}
 		</nav>
-		@if (ViewBag.Title != null) {
-			<h1>@ViewBag.Title</h1>
-		}
-		@RenderBody()
+		<main>
+			@if (ViewBag.Header != null) {
+				<h1>@ViewBag.Header</h1>
+			}
+			@RenderBody()
+		</main>
 	</content>
 	<footer>
 		<div class="bg">
@@ -54,7 +63,6 @@
 	</div>
 	</footer>
 	<script src="/index.js"></script>
-	<!-- <partial name="_CookieConsentPartial" /> -->
-	<!-- @RenderSection("Scripts", required: false) -->
+	@RenderSection("Scripts", required: false)
 </body>
 </html>

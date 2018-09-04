@@ -8,6 +8,7 @@
 @spacing-md:                     15px;
 @spacing-lg:                     20px;
 @spacing-xl:                     35px;
+@spacing-footer:                 50px;
 @padding-default-phone:          15px;
 @padding-default:                25px;
 
@@ -50,3 +51,5 @@
 @device-tablet:                  768px;
 @media-phone-landscape:          ~'(min-width: @{device-phone-landscape})';
 @media-tablet:                   ~'(min-width: @{device-tablet})';
+@media-retina:                   ~'(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)';
+@media-retina-tablet:            ~'(min-width: @{device-tablet}) and (-webkit-min-device-pixel-ratio: 2), (min-width: @{device-tablet}) and (min-resolution: 192dpi)';

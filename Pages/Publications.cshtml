@@ -2,7 +2,9 @@
 @model PublicationsModel
 @inject MarkdownProvider Markdown
 @{
-	ViewBag.Title = Model.Item?.Name ?? "Публикации";
+	string section = "Публикации";
+	ViewBag.Title = (Model.Item != null ? Model.Item.Name + " - " : null) + section;
+	ViewBag.Header = Model.Item?.Name ?? section;
 }
 
 @if (Model.List != null) {
@@ -19,9 +21,14 @@
 	}
 }
 else {
-	<article class="doc gallery">
+	<article class="publications-item doc gallery">
 		<h3>@Model.Item.Place (@Model.Item.Date.ToString("MMMM yyyy"))</h3>
 		@Markdown.ToHtml(Model.Item.Text)
 	</article>
-	<a asp-route-key="">Вернуться к списку публикации</a>
+	<div class="flex">
+		<a class="back" asp-route-key="">
+			<svg><use xlink:href="#icon-back"/></svg>
+			Вернуться к списку публикации
+		</a>
+	</div>
 }
