@@ -27,7 +27,7 @@ namespace StyleEl.Controllers
 			_storage = storage;
 		}
 
-		[HttpGet("{*path}")]
+		[HttpGet("{**path}")]
 		public async Task<IActionResult> File(string path, [FromQuery]ImageOptions options)
 		{
 			// process retina sizing

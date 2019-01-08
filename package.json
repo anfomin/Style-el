@@ -5,15 +5,15 @@
 	"private": true,
 	"devDependencies": {
 		"gulp": "4.0.0",
-		"gulp-plumber": "1.2.0",
+		"gulp-plumber": "1.2.1",
 		"gulp-concat": "2.6.1",
 		"gulp-clean": "0.4.0",
 		"gulp-less": "4.0.1",
 		"gulp-csso": "3.0.1",
 		"gulp-gzip": "1.4.2",
 		"gulp-uglify": "3.0.1",
-		"merge2": "1.2.2",
-		"lightgallery.js": "1.1.1",
+		"merge2": "1.2.3",
+		"lightgallery.js": "1.1.2",
 		"lg-zoom.js": "1.0.1"
 	}
 }

@@ -47,7 +47,7 @@ namespace StyleEl
 		/// </summary>
 		/// <param name="size">Desired image size.</param>
 		/// <param name="method">The resize method.</param>
-		public static SKBitmap Resize(this SKBitmap bitmap, Size size, SKBitmapResizeMethod method = SKBitmapResizeMethod.Mitchell)
+		public static SKBitmap Resize(this SKBitmap bitmap, Size size, SKFilterQuality quality = SKFilterQuality.High)
 		{
 			SKBitmap resized;
 			var resizeInfo = new SKImageInfo(size.Width, size.Height);
@@ -55,10 +55,10 @@ namespace StyleEl
 			{
 				// SkiaSharp sometimes does not support resizing non-platform color types
 				using (var temp = bitmap.Copy(SKImageInfo.PlatformColorType))
-					resized = temp.Resize(resizeInfo, method);
+					resized = temp.Resize(resizeInfo, quality);
 			}
 			else
-				resized = bitmap.Resize(resizeInfo, method);
+				resized = bitmap.Resize(resizeInfo, quality);
 
 			if (resized == null)
 				throw new InvalidOperationException("Can not resize image");
@@ -69,7 +69,7 @@ namespace StyleEl
 		/// Creates proportionally-resized image. Does not upscale image.
 		/// Returns null if source bitmap size is the save as resized one.
 		/// </summary>
-		public static SKBitmap Resize(this SKBitmap bitmap, Size size, ResizeMode mode, SKBitmapResizeMethod method = SKBitmapResizeMethod.Mitchell)
+		public static SKBitmap Resize(this SKBitmap bitmap, Size size, ResizeMode mode, SKFilterQuality quality = SKFilterQuality.High)
 		{
 			var sourceSize = new Size(bitmap.Width, bitmap.Height);
 			var resultSize = size.GetResized(bitmap.Width, bitmap.Height, mode);
@@ -87,13 +87,13 @@ namespace StyleEl
 				var rect = new SKRectI(left, top, left + resultSize.Width, top + resultSize.Height);
 
 				var fillBitmap = new SKBitmap(resultSize.Width, resultSize.Height);
-				using (var filled = bitmap.Resize(fillSize, method))
+				using (var filled = bitmap.Resize(fillSize, quality))
 					filled.ExtractSubset(fillBitmap, rect);
 				return fillBitmap;
 			}
 
 			var fitSize = size.GetResized(bitmap.Width, bitmap.Height);
-			var resized = bitmap.Resize(fitSize, method);
+			var resized = bitmap.Resize(fitSize, quality);
 			if (mode == ResizeMode.Fit)
 				return resized;
 

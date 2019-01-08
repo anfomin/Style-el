@@ -28,12 +28,12 @@ namespace StyleEl
 		/// Rotates image according EXIF orientation.
 		/// </summary>
 		/// <returns>Rotates bitmap or source bitmap if rotation does not required.</returns>
-		public static SKBitmap HandleOrientation(this SKBitmap bitmap, SKCodecOrigin orientation)
+		public static SKBitmap HandleOrientation(this SKBitmap bitmap, SKEncodedOrigin origin)
 		{
 			SKBitmap result;
-			switch (orientation)
+			switch (origin)
 			{
-				case SKCodecOrigin.BottomRight: // rotated 180
+				case SKEncodedOrigin.BottomRight: // rotated 180
 					result = new SKBitmap(bitmap.Width, bitmap.Height);
 					using (var surface = new SKCanvas(result))
 					{
@@ -41,7 +41,7 @@ namespace StyleEl
 						surface.DrawBitmap(bitmap, 0, 0);
 					}
 					return result;
-				case SKCodecOrigin.RightTop: // rotated 90 cw
+				case SKEncodedOrigin.RightTop: // rotated 90 cw
 					result = new SKBitmap(bitmap.Height, bitmap.Width);
 					using (var surface = new SKCanvas(result))
 					{
@@ -50,7 +50,7 @@ namespace StyleEl
 						surface.DrawBitmap(bitmap, 0, 0);
 					}
 					return result;
-				case SKCodecOrigin.LeftBottom: // rotated 90 ccw
+				case SKEncodedOrigin.LeftBottom: // rotated 90 ccw
 					result = new SKBitmap(bitmap.Height, bitmap.Width);
 					using (var surface = new SKCanvas(result))
 					{
@@ -80,8 +80,8 @@ namespace StyleEl
 					bitmap = codec.DecodeColored();
 
 					// handle EXIF orientation
-					if (codec.Origin != SKCodecOrigin.TopLeft &&
-						bitmap.HandleOrientation(codec.Origin) is SKBitmap rotated)
+					if (codec.EncodedOrigin != SKEncodedOrigin.TopLeft &&
+						bitmap.HandleOrientation(codec.EncodedOrigin) is SKBitmap rotated)
 					{
 						bitmap.Dispose();
 						bitmap = rotated;
