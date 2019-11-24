@@ -6,11 +6,12 @@
 		<RepositoryType>git</RepositoryType>
 		<AssemblyName>StyleEl</AssemblyName>
 		<PackageId>StyleEl</PackageId>
-		<VersionPrefix>1.1.1</VersionPrefix>
+		<VersionPrefix>1.2.0</VersionPrefix>
 		<VersionSuffix Condition="'$(VERSION_SUFFIX)'!=''">$(VERSION_SUFFIX)</VersionSuffix>
 		<NoWarn>$(NoWarn);1591;1573</NoWarn>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
-		<TargetFramework>netcoreapp2.2</TargetFramework>
+		<Nullable>enable</Nullable>
 		<UserSecretsId>7c4c46ae-d5b9-4e77-a6fc-8879e4b1dbdd</UserSecretsId>
 	</PropertyGroup>
 
@@ -25,9 +26,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
-		<PackageReference Include="Markdig" Version="0.15.6" />
-		<PackageReference Include="SkiaSharp" Version="1.68.0" />
+		<PackageReference Include="Markdig" Version="0.18.0" />
+		<PackageReference Include="SkiaSharp" Version="1.68.1" />
 	</ItemGroup>
 </Project>

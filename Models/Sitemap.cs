@@ -24,7 +24,7 @@ namespace StyleEl.Models
 			}
 		}
 
-		public void ToStream(Stream output, Encoding encoding = null)
+		public void ToStream(Stream output, Encoding? encoding = null)
 		{
 			var serializer = new XmlSerializer(typeof(Sitemap));
 			var ns = new XmlSerializerNamespaces();
@@ -47,7 +47,7 @@ namespace StyleEl.Models
 		public DateTime? LastMod { get; set; }
 
 		[XmlElement("lastmod")]
-		public string LastModString
+		public string? LastModString
 		{
 			get => LastMod?.ToString("yyyy-MM-dd");
 			set => LastMod = value == null ? null : (DateTime?)DateTime.Parse(value);
@@ -59,19 +59,17 @@ namespace StyleEl.Models
 		[XmlElement("priority")]
 		public double? Priority { get; set; }
 
-		public SitemapUrl() { }
-
 		public SitemapUrl(string location)
 		{
 			Location = location;
 		}
 
-		public SitemapUrl(IUrlHelper url, string action, string controller, object values = null)
+		public SitemapUrl(IUrlHelper url, string? action, string? controller, object? values = null)
 		{
 			Location = url.Action(action, controller, values, url.ActionContext.HttpContext.Request.Scheme);
 		}
 
-		public SitemapUrl(IUrlHelper url, string pageName, object values = null)
+		public SitemapUrl(IUrlHelper url, string pageName, object? values = null)
 		{
 			Location = url.Page(pageName, null, values, url.ActionContext.HttpContext.Request.Scheme);
 		}

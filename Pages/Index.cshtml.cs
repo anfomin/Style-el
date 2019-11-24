@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -8,17 +9,16 @@ using StyleEl.Models;
 
 namespace StyleEl.Pages
 {
+	[ResponseCache(CacheProfileName = "Default")]
 	public class IndexModel : PageModel
 	{
 		readonly CloudStorageAccount _storage;
 
-		public string Text { get; private set; }
-		public IList<Partner> Partners { get; private set; }
+		public string Text { get; private set; } = null!;
+		public IList<Partner> Partners { get; private set; } = null!;
 
 		public IndexModel(CloudStorageAccount storage)
-		{
-			_storage = storage;
-		}
+			=> _storage = storage;
 
 		public async Task OnGetAsync()
 		{

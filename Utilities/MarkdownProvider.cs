@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Markdig;
 using Microsoft.AspNetCore.Html;
 
@@ -18,7 +19,8 @@ namespace StyleEl
 				.Build();
 		}
 
-		public IHtmlContent ToHtml(string source)
+		[return: NotNullIfNotNull("source")]
+		public IHtmlContent? ToHtml(string? source)
 		{
 			if (source == null)
 				return null;
@@ -27,7 +29,8 @@ namespace StyleEl
 			return html;
 		}
 
-		public string ToPlainText(string source)
+		[return: NotNullIfNotNull("source")]
+		public string? ToPlainText(string? source)
 		{
 			if (source == null)
 				return null;

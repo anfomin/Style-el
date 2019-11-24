@@ -23,13 +23,11 @@ namespace StyleEl
 			// for jpeg we need to render image on white background
 			if (format == SKEncodedImageFormat.Jpeg)
 			{
-				using (var temp = new SKBitmap(bitmap.Width, bitmap.Height, true))
-				using (var canvas = new SKCanvas(temp))
-				{
-					canvas.Clear(SKColors.White);
-					canvas.DrawBitmap(bitmap, 0, 0);
-					return temp.Encode(format, quality);
-				}
+				using var temp = new SKBitmap(bitmap.Width, bitmap.Height, true);
+				using var canvas = new SKCanvas(temp);
+				canvas.Clear(SKColors.White);
+				canvas.DrawBitmap(bitmap, 0, 0);
+				return temp.Encode(format, quality);
 			}
 			return bitmap.Encode(format, quality);
 		}
@@ -69,7 +67,7 @@ namespace StyleEl
 		/// Creates proportionally-resized image. Does not upscale image.
 		/// Returns null if source bitmap size is the save as resized one.
 		/// </summary>
-		public static SKBitmap Resize(this SKBitmap bitmap, Size size, ResizeMode mode, SKFilterQuality quality = SKFilterQuality.High)
+		public static SKBitmap? Resize(this SKBitmap bitmap, Size size, ResizeMode mode, SKFilterQuality quality = SKFilterQuality.High)
 		{
 			var sourceSize = new Size(bitmap.Width, bitmap.Height);
 			var resultSize = size.GetResized(bitmap.Width, bitmap.Height, mode);

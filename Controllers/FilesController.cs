@@ -65,10 +65,10 @@ namespace StyleEl.Controllers
 
 					try
 					{
-						using (var sourceStream = await source.OpenReadAsync())
-						using (var resized = Imaging.Resize(sourceStream, options))
-						using (var blobStream = await blob.OpenWriteAsync())
-							await resized.CopyToAsync(blobStream);
+						using var sourceStream = await source.OpenReadAsync();
+						using var resized = Imaging.Resize(sourceStream, options)!;
+						using var blobStream = await blob.OpenWriteAsync();
+						await resized.CopyToAsync(blobStream);
 					}
 					catch (FormatException)
 					{
@@ -87,7 +87,7 @@ namespace StyleEl.Controllers
 			return Redirect(url);
 		}
 
-		string GetSuffix(ImageOptions options)
+		string? GetSuffix(ImageOptions options)
 		{
 			if (options.IsEmpty)
 				return null;

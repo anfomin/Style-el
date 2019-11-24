@@ -20,7 +20,7 @@
 		</article>
 	}
 }
-else {
+else if (Model.Item != null) {
 	<article class="publications-item doc gallery">
 		<h3>@Model.Item.Place (@Model.Item.Date.ToString("MMMM yyyy"))</h3>
 		@Markdown.ToHtml(Model.Item.Text)

@@ -8,7 +8,7 @@ namespace StyleEl.Pages
 	[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
 	public class ErrorModel : PageModel
 	{
-		public Exception Error { get; private set; }
+		public Exception Error { get; private set; } = null!;
 
 		public IActionResult OnGet()
 		{

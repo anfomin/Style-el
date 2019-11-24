@@ -25,10 +25,10 @@
 		}
 	</ul>
 }
-else {
+else if (Model.Item != null) {
 	var item = Model.Item;
 	var publication = Model.Publication;
-	var images = Model.Images.GetValueOrDefault(item.RowKey, new string[0]);
+	var images = Model.Images.GetValueOrDefault(item.RowKey, new string[0])!;
 	<article class="projects-item doc">
 		@Markdown.ToHtml(item.Text)
 		@if (publication != null) {

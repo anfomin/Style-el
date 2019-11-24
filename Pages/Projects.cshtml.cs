@@ -13,15 +13,16 @@ using StyleEl.Models;
 
 namespace StyleEl.Pages
 {
+	[ResponseCache(CacheProfileName = "Default")]
 	public class ProjectsModel : PageModel
 	{
 		readonly IMemoryCache _cache;
 		readonly CloudStorageAccount _storage;
 
-		public IList<Project> List { get; private set; }
-		public Project Item { get; private set; }
-		public Publication Publication { get; private set; }
-		public Dictionary<string, string[]> Images { get; private set; }
+		public IList<Project>? List { get; private set; }
+		public Project? Item { get; private set; }
+		public Publication? Publication { get; private set; }
+		public Dictionary<string, string[]> Images { get; private set; } = null!;
 
 		public ProjectsModel(IMemoryCache cache, CloudStorageAccount storage)
 		{
@@ -87,12 +88,12 @@ namespace StyleEl.Pages
 					};
 				})
 				.Where(item => item != null)
-				.GroupBy(item => item.Project)
+				.GroupBy(item => item!.Project)
 				.ToDictionary(
 					g => g.Key,
 					g => g
-						.OrderBy(item => item.Index)
-						.Select(item => item.Url)
+						.OrderBy(item => item!.Index)
+						.Select(item => item!.Url)
 						.ToArray()
 				);
 		}

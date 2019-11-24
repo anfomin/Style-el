@@ -4,6 +4,6 @@ namespace StyleEl.Models
 {
 	public class PageText: TableEntity
 	{
-		public string Text { get; set; }
+		public string Text { get; set; } = "";
 	}
 }

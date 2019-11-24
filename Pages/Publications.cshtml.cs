@@ -9,17 +9,16 @@ using StyleEl.Models;
 
 namespace StyleEl.Pages
 {
+	[ResponseCache(CacheProfileName = "Default")]
 	public class PublicationsModel : PageModel
 	{
 		readonly CloudStorageAccount _storage;
 
-		public IList<Publication> List { get; private set; }
-		public Publication Item { get; private set; }
+		public IList<Publication>? List { get; private set; }
+		public Publication? Item { get; private set; }
 
 		public PublicationsModel(CloudStorageAccount storage)
-		{
-			_storage = storage;
-		}
+			=> _storage = storage;
 
 		public async Task<IActionResult> OnGetAsync(string key)
 		{

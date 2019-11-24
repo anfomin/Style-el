@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using System.IO;
 using SkiaSharp;
 
@@ -28,7 +27,7 @@ namespace StyleEl
 		/// Rotates image according EXIF orientation.
 		/// </summary>
 		/// <returns>Rotates bitmap or source bitmap if rotation does not required.</returns>
-		public static SKBitmap HandleOrientation(this SKBitmap bitmap, SKEncodedOrigin origin)
+		public static SKBitmap? HandleOrientation(this SKBitmap bitmap, SKEncodedOrigin origin)
 		{
 			SKBitmap result;
 			switch (origin)
@@ -64,38 +63,34 @@ namespace StyleEl
 			}
 		}
 
-		public static Stream Resize(Stream stream, ImageOptions options)
+		public static Stream? Resize(Stream stream, ImageOptions options)
 		{
-			if (options == null)
-				throw new ArgumentNullException(nameof(options));
 			if (options.IsEmpty)
 				return null;
 
 			Stream result;
-			SKBitmap bitmap = null;
+			SKBitmap? bitmap = null;
 			try
 			{
-				using (var codec = Imaging.CreateCodec(stream))
+				using var codec = Imaging.CreateCodec(stream);
+				bitmap = codec.DecodeColored();
+
+				// handle EXIF orientation
+				if (codec.EncodedOrigin != SKEncodedOrigin.TopLeft &&
+					bitmap.HandleOrientation(codec.EncodedOrigin) is SKBitmap rotated)
 				{
-					bitmap = codec.DecodeColored();
-
-					// handle EXIF orientation
-					if (codec.EncodedOrigin != SKEncodedOrigin.TopLeft &&
-						bitmap.HandleOrientation(codec.EncodedOrigin) is SKBitmap rotated)
-					{
-						bitmap.Dispose();
-						bitmap = rotated;
-					}
-
-					// handle resize
-					if (bitmap.Resize(options.Size, options.Mode) is SKBitmap resized)
-					{
-						bitmap.Dispose();
-						bitmap = resized;
-					}
-
-					result = bitmap.EncodeDefaultWhite(codec.EncodedFormat).AsStream(true);
+					bitmap.Dispose();
+					bitmap = rotated;
 				}
+
+				// handle resize
+				if (bitmap.Resize(options.Size, options.Mode) is SKBitmap resized)
+				{
+					bitmap.Dispose();
+					bitmap = resized;
+				}
+
+				result = bitmap.EncodeDefaultWhite(codec.EncodedFormat).AsStream(true);
 			}
 			catch (Exception ex)
 			{
@@ -103,8 +98,7 @@ namespace StyleEl
 			}
 			finally
 			{
-				if (bitmap != null)
-					bitmap.Dispose();
+				bitmap?.Dispose();
 			}
 			return result;
 		}
