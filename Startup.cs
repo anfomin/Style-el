@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using Microsoft.WindowsAzure.Storage;
+using StyleEl.Services;
 
 namespace StyleEl
 {
@@ -48,7 +49,7 @@ namespace StyleEl
 			{
 				DefaultRequestCulture = new RequestCulture("ru-RU")
 			});
-			app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = PrepareStaticFile });
+			app.UseStaticFiles(ConfigureStaticFiles());
 			app.UseRewriter(ConfigureRewrite(env));
 			app.UseResponseCaching();
 			app.UseRouting();
@@ -59,11 +60,31 @@ namespace StyleEl
 			});
 		}
 
+		StaticFileOptions ConfigureStaticFiles()
+		{
+			return new StaticFileOptions
+			{
+				ServeUnknownFileTypes = true,
+				OnPrepareResponse = (responseContext) =>
+				{
+					var headers = responseContext.Context.Response.GetTypedHeaders();
+					headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue
+					{
+						Public = true,
+						MaxAge = TimeSpan.FromMinutes(10)
+					};
+				}
+			};
+		}
+
 		RewriteOptions ConfigureRewrite(IWebHostEnvironment env)
 		{
 			var opt = new RewriteOptions();
 			if (env.IsProduction())
+			{
+				opt.Add(new RedirectFromWwwRule(StatusCodes.Status301MovedPermanently, https: true));
 				opt.AddRedirectToHttpsPermanent();
+			}
 			return opt
 				.AddRedirect("^index$", "/")
 				.AddRedirect("^(.+)/$", "$1");
@@ -72,16 +93,6 @@ namespace StyleEl
 		void ConfigureMvc(MvcOptions options)
 		{
 			options.CacheProfiles.Add("Default", new CacheProfile { Location = ResponseCacheLocation.Any, Duration = 10 * 60 });
-		}
-
-		void PrepareStaticFile(StaticFileResponseContext responseContext)
-		{
-			var headers = responseContext.Context.Response.GetTypedHeaders();
-			headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue
-			{
-				Public = true,
-				MaxAge = TimeSpan.FromMinutes(10)
-			};
 		}
 	}
 }
