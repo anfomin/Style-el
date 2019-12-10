@@ -6,10 +6,10 @@
 		<RepositoryType>git</RepositoryType>
 		<AssemblyName>StyleEl</AssemblyName>
 		<PackageId>StyleEl</PackageId>
-		<VersionPrefix>1.2.0</VersionPrefix>
+		<VersionPrefix>1.2.1</VersionPrefix>
 		<VersionSuffix Condition="'$(VERSION_SUFFIX)'!=''">$(VERSION_SUFFIX)</VersionSuffix>
 		<NoWarn>$(NoWarn);1591;1573</NoWarn>
-		<TargetFramework>netcoreapp3.0</TargetFramework>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<UserSecretsId>7c4c46ae-d5b9-4e77-a6fc-8879e4b1dbdd</UserSecretsId>
