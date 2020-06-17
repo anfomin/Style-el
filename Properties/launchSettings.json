@@ -17,7 +17,6 @@
 		},
 		"StyleEl": {
 			"commandName": "Project",
-			"launchBrowser": true,
 			"applicationUrl": "http://*:5000",
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Development"

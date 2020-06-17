@@ -12,9 +12,7 @@ namespace StyleEl.Controllers
 		readonly CloudStorageAccount _storage;
 
 		public SitemapController(CloudStorageAccount storage)
-		{
-			_storage = storage;
-		}
+			=> _storage = storage;
 
 		[HttpGet("sitemap.xml")]
 		[ResponseCache(CacheProfileName = "Default")]

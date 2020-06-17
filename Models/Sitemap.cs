@@ -17,11 +17,9 @@ namespace StyleEl.Models
 		public string ToXml()
 		{
 			var encoding = new UTF8Encoding(false);
-			using (var ms = new MemoryStream())
-			{
-				ToStream(ms, encoding);
-				return encoding.GetString(ms.ToArray());
-			}
+			using var ms = new MemoryStream();
+			ToStream(ms, encoding);
+			return encoding.GetString(ms.ToArray());
 		}
 
 		public void ToStream(Stream output, Encoding? encoding = null)
@@ -31,8 +29,8 @@ namespace StyleEl.Models
 			ns.Add(string.Empty, NS);
 
 			var settings = new XmlWriterSettings { Encoding = encoding ?? new UTF8Encoding(false) };
-			using (var writer = XmlWriter.Create(output, settings))
-				serializer.Serialize(writer, this, ns);
+			using var writer = XmlWriter.Create(output, settings);
+			serializer.Serialize(writer, this, ns);
 		}
 	}
 
@@ -60,19 +58,13 @@ namespace StyleEl.Models
 		public double? Priority { get; set; }
 
 		public SitemapUrl(string location)
-		{
-			Location = location;
-		}
+			=> Location = location;
 
 		public SitemapUrl(IUrlHelper url, string? action, string? controller, object? values = null)
-		{
-			Location = url.Action(action, controller, values, url.ActionContext.HttpContext.Request.Scheme);
-		}
+			=> Location = url.Action(action, controller, values, url.ActionContext.HttpContext.Request.Scheme);
 
 		public SitemapUrl(IUrlHelper url, string pageName, object? values = null)
-		{
-			Location = url.Page(pageName, null, values, url.ActionContext.HttpContext.Request.Scheme);
-		}
+			=> Location = url.Page(pageName, null, values, url.ActionContext.HttpContext.Request.Scheme);
 
 		public bool ShouldSerializeChangeFrequency() => ChangeFrequency.HasValue;
 		public bool ShouldSerializePriority() => Priority.HasValue;

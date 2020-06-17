@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using StyleEl.Models;
 
 namespace StyleEl.Controllers
 {
@@ -41,7 +39,7 @@ namespace StyleEl.Controllers
 			}
 
 			string pathFinal = pathWithoutExtention + GetSuffix(options) + ext;
-			string url = await _cache.GetOrCreateAsync($"File:{pathFinal}", async entry =>
+			string? url = await _cache.GetOrCreateAsync($"File:{pathFinal}", async entry =>
 			{
 				entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
 				var container = _storage.CreateCloudBlobClient().GetContainerReference(Consts.FilesContainer);
